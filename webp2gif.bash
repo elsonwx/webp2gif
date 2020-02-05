@@ -1,5 +1,11 @@
 #!/bin/bash
-#usage: webp2gif input.webp output.gif
+#title          :webp2gif.bash
+#description    :convert animated webp to gif
+#author         :elsonwx
+#date           :20200205
+#usage          :bash webp2gif.bash input.webp output.gif
+#==============================================================================
+
 cur_dir=$(pwd)
 temp_dir=$(mktemp -d)
 cd $temp_dir
@@ -7,18 +13,27 @@ webpfile=$1
 if [[ ! -f $webpfile ]];then
     webpfile=$cur_dir/$webpfile
 fi
-frames_num=$(webpinfo $webpfile|grep Format|wc -l)
-for i in $(seq 0 $frames_num);do
+frames_num=$(webpmux -info $webpfile|sed -n 's/Number of frames: //p')
+table_line=$(webpmux -info $webpfile|grep -nh  "No.: width.*"|cut -d : -f 1)
+for i in $(seq 1 $frames_num);do
     webpmux -get frame $i $webpfile -o "$i.webp"
+    width=$(webpmux -info $webpfile|awk -v cur_line="$((table_line+i))" '{if(NR==cur_line) print $2}')
+    offset_x=$(webpmux -info $webpfile|awk -v cur_line="$((table_line+i))" '{if(NR==cur_line) print $5}')
+    new_width=$((width+offset_x))
+    height=$(webpmux -info $webpfile|awk -v cur_line="$((table_line+i))" '{if(NR==cur_line) print $3}')
+    offset_y=$(webpmux -info $webpfile|awk -v cur_line="$((table_line+i))" '{if(NR==cur_line) print $6}')
+    new_height=$((height+offset_y))
     dwebp "$i.webp" -o "$i.png"
-done;
-#mv 0.png "$(($frames_num+1)).png"
+    convert -gravity southeast -extent ${new_width}x${new_height} -background none "$i.png" "$i.png"
+done
 for i in {1..9}
 do
    if [[ -f "$i.png" ]];then
        mv "$i.png" "0$i.png"
    fi
 done
+echo "converting all png frame file to gif..."
 convert -delay 0 -loop 0 *.png animation.gif
 mv $temp_dir/animation.gif $cur_dir/$2
 rm -rf $temp_dir
+echo "finished with success!"
