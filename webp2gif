@@ -1,9 +1,9 @@
 #!/bin/bash
-#title          :webp2gif.bash
+#title          :webp2gif
 #description    :convert animated webp to gif
 #author         :elsonwx
 #date           :20200205
-#usage          :bash webp2gif.bash input.webp output.gif
+#usage          :webp2gif input.webp output.gif
 #==============================================================================
 
 cur_dir=$(pwd)
