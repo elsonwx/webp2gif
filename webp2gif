@@ -5,7 +5,11 @@
 #date           :20200205
 #usage          :webp2gif input.webp output.gif
 #==============================================================================
-
+version=0.1
+if [[ $1 == "-v" ]];then
+    echo "version:$version"
+    exit 0
+fi
 cur_dir=$(pwd)
 temp_dir=$(mktemp -d)
 cd $temp_dir
