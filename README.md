@@ -1,7 +1,7 @@
 # webp2gif
 convert animated webp to gif
 
-###Prerequisites
+### Prerequisites
 
 [webp](https://developers.google.com/speed/webp/download) && [imagemagick](https://imagemagick.org/script/download.php)
 
