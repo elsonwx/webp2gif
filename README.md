@@ -5,8 +5,6 @@ convert animated webp to gif
 
 [webp](https://developers.google.com/speed/webp/download) && [imagemagick](https://imagemagick.org/script/download.php)
 
-##### install example
-
 - macos
 
    `brew install webp && brew install imagemagick`
