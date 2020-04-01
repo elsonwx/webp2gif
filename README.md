@@ -18,6 +18,6 @@ convert animated webp to gif
 ```
 $ wget https://git.io/webp2gif && chmod +x webp2gif
 
-$ webp2gif input.webp output.gif
+$ ./webp2gif input.webp output.gif
 ```
 
