@@ -33,6 +33,12 @@ done
 for i in {1..9}
 do
    if [[ -f "$i.png" ]];then
+       mv "$i.png" "00$i.png"
+   fi
+done
+for i in {10..99}
+do
+   if [[ -f "$i.png" ]];then
        mv "$i.png" "0$i.png"
    fi
 done
