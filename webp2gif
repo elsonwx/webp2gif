@@ -30,18 +30,7 @@ for i in $(seq 1 $frames_num);do
     dwebp "$i.webp" -o "$i.png"
     convert -gravity southeast -extent ${new_width}x${new_height} -background none "$i.png" "$i.png"
 done
-for i in {1..9}
-do
-   if [[ -f "$i.png" ]];then
-       mv "$i.png" "00$i.png"
-   fi
-done
-for i in {10..99}
-do
-   if [[ -f "$i.png" ]];then
-       mv "$i.png" "0$i.png"
-   fi
-done
+rename 's/(\d+)/sprintf("%03d",$1)/e' *.png
 echo "converting all png frame file to gif..."
 convert -delay 0 -loop 0 *.png animation.gif
 mv $temp_dir/animation.gif $cur_dir/$2
