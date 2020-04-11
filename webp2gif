@@ -17,15 +17,16 @@ webpfile=$1
 if [[ ! -f $webpfile ]];then
     webpfile=$cur_dir/$webpfile
 fi
-frames_num=$(webpmux -info $webpfile|sed -n 's/Number of frames: //p')
-table_line=$(webpmux -info $webpfile|grep -nh  "No.: width.*"|cut -d : -f 1)
+webpfileinfo="$(webpmux -info $webpfile)"
+frames_num=$(echo "$webpfileinfo"|sed -n 's/Number of frames: //p')
+table_line=$(echo "$webpfileinfo"|grep -nh  "No.: width.*"|cut -d : -f 1)
 for i in $(seq 1 $frames_num);do
     webpmux -get frame $i $webpfile -o "$i.webp"
-    width=$(webpmux -info $webpfile|awk -v cur_line="$((table_line+i))" '{if(NR==cur_line) print $2}')
-    offset_x=$(webpmux -info $webpfile|awk -v cur_line="$((table_line+i))" '{if(NR==cur_line) print $5}')
+    width=$(echo "$webpfileinfo"|awk -v cur_line="$((table_line+i))" '{if(NR==cur_line) print $2}')
+    offset_x=$(echo "$webpfileinfo"|awk -v cur_line="$((table_line+i))" '{if(NR==cur_line) print $5}')
     new_width=$((width+offset_x))
-    height=$(webpmux -info $webpfile|awk -v cur_line="$((table_line+i))" '{if(NR==cur_line) print $3}')
-    offset_y=$(webpmux -info $webpfile|awk -v cur_line="$((table_line+i))" '{if(NR==cur_line) print $6}')
+    height=$(echo "$webpfileinfo"|awk -v cur_line="$((table_line+i))" '{if(NR==cur_line) print $3}')
+    offset_y=$(echo "$webpfileinfo"|awk -v cur_line="$((table_line+i))" '{if(NR==cur_line) print $6}')
     new_height=$((height+offset_y))
     dwebp "$i.webp" -o "$i.png"
     convert -gravity southeast -extent ${new_width}x${new_height} -background none "$i.png" "$i.png"
