@@ -7,7 +7,7 @@ convert animated webp to gif
 
 - macos
 
-   `brew install webp && brew install imagemagick`
+   `brew install webp && brew install imagemagick && brew install rename`
 
 - ubuntu
 
