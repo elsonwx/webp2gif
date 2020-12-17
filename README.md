@@ -28,3 +28,6 @@ wget https://git.io/webp2gif && chmod +x webp2gif
 ./webp2gif input.webp output.gif
 ```
 
+### Link
+Maybe you want to convert a gif to webp?
+Look for this [gif2webp](https://developers.google.com/speed/webp/docs/gif2webp)
