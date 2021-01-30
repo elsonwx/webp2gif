@@ -3,24 +3,54 @@
 #description    :convert animated webp to gif
 #author         :elsonwx
 #date           :20200205
-#usage          :webp2gif input.webp output.gif
+#usage          :webp2gif input.webp [output.gif]
 #==============================================================================
-version=0.2
+version=0.3
 if [[ $1 == "-v" ]];then
     echo "version:$version"
+    exit 0
+fi
+if [[ $1 == "-h" || $1 == "--help" || -z $1 ]];then
+    cat <<EOM
+
+$(basename $0) version:$version
+
+Usage: $(basename $0) <input.webp> [output.gif]
+
+Notes: The output file name is optional.
+       If not supplied the gif extension will be used with the input filename,
+       e.g. foobar.webp --> foobar.gif
+       
+EOM
     exit 0
 fi
 cur_dir=$(pwd)
 temp_dir=$(mktemp -d)
 cd $temp_dir
 webpfile=$1
+if [[ -z $2 ]];then
+    giffile=${webpfile%%.webp}.gif
+else
+    giffile=$2
+fi
 if [[ ! -f $webpfile ]];then
     webpfile="$cur_dir/$webpfile"
+    if [[ ! -f $webpfile ]];then
+        echo "input file not found -- \"$webpfile\""
+        exit 1
+    fi    
 fi
+
+# abend on any processing errors so that we:
+#  - don't see a success message when there is a failure
+#  - set the exit code to non-zero
+set -e
+
 webpfileinfo="$(webpmux -info "$webpfile")"
 frames_num=$(echo "$webpfileinfo"|sed -n 's/Number of frames: //p')
 table_line=$(echo "$webpfileinfo"|grep -nh  "No.: width.*"|cut -d : -f 1)
 duration=0
+echo "Extracting webp frames..."
 for i in $(seq 1 $frames_num);do
     webpmux -get frame $i "$webpfile" -o "$i.webp"
     width=$(echo "$webpfileinfo"|awk -v cur_line="$((table_line+i))" '{if(NR==cur_line) print $2}')
@@ -37,6 +67,6 @@ rename 's/(\d+)/sprintf("%03d",$1)/e' *.png
 echo "converting all png frame file to gif..."
 duration=$((duration/10))
 convert -delay $duration -loop 0 *.png animation.gif
-mv $temp_dir/animation.gif "$cur_dir/$2"
+mv $temp_dir/animation.gif "$cur_dir/$giffile"
 rm -rf $temp_dir
 echo "finished with success!"
