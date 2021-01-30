@@ -6,7 +6,7 @@
 #usage          :webp2gif input.webp [output.gif]
 #==============================================================================
 version=0.3
-if [[ $1 == "-v" ]];then
+if [[ $1 == "-v" || $1 == "--version"]];then
     echo "version:$version"
     exit 0
 fi
