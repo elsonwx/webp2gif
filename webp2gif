@@ -15,7 +15,11 @@ if [[ $1 == "-h" || $1 == "--help" || -z $1 ]];then
 
 $(basename $0) version:$version
 
-Usage: $(basename $0) <input.webp> [output.gif]
+Usage: $(basename $0) [-v|-h] <input.webp> [output.gif]
+
+Options:
+  -v, --version  Display the version of the script
+  -h, --help     Display a brief usage message
 
 Notes: The output file name is optional.
        If not supplied the gif extension will be used with the input filename,
