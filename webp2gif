@@ -59,7 +59,6 @@ for i in $(seq -f "%03g" 1 $frames_num);do
     webpmux -get frame $i "$webpfile" -o "$i.webp"
     
     width=$(echo "$webpfileinfo"|awk -v cur_line="$((table_line+10#$i))" '{if(NR==cur_line) print $2}')
-    echo $width
     offset_x=$(echo "$webpfileinfo"|awk -v cur_line="$((table_line+10#$i))" '{if(NR==cur_line) print $5}')
     duration=$(echo "$webpfileinfo"|awk -v cur_line="$((table_line+10#$i))" '{if(NR==cur_line) print $7}')
     new_width=$((width+offset_x))
