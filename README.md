@@ -12,13 +12,12 @@ convert animated webp to gif
    ```
    brew install webp
    brew install imagemagick
-   brew install rename
    ```
 
 - Ubuntu/Debian
 
   ```
-  sudo apt install webp imagemagick rename
+  sudo apt install webp imagemagick
   ```
 
 ### Usage
