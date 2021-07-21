@@ -70,7 +70,7 @@ for i in $(seq -f "%03g" 1 $frames_num);do
 done
 echo "converting all png frame file to gif..."
 duration=$((duration/10))
-convert -delay $duration -loop 0 *.png animation.gif
+convert -delay $duration -loop 0 -alpha set -dispose previous *.png animation.gif
 mv $temp_dir/animation.gif "$cur_dir/$giffile"
 rm -rf $temp_dir
 echo "finished with success!"
