@@ -1,8 +1,8 @@
 #!/bin/bash
 #title          :webp2gif
 #description    :convert animated webp to gif
-#author         :elsonwx
-#date           :20200205
+#github         :https://github.com/elsonwx/webp2gif
+#date           :20210927
 #usage          :webp2gif input.webp [output.gif]
 #==============================================================================
 version=0.3
