@@ -26,7 +26,9 @@ wget https://git.io/webp2gif && chmod +x webp2gif
 ./webp2gif [-v|-h] <input.webp> [output.gif]
 ```
 
-input.webp is mandatory,output.gif is optional, if not supplied the input filename will be used, e.g. foobar.webp --> foobar.gif
+input.webp is mandatory,output.gif is optional.
+
+if output.gif is not supplied the input filename will be used, e.g. foobar.webp --> foobar.gif
 
 ### Options
 
@@ -35,6 +37,10 @@ input.webp is mandatory,output.gif is optional, if not supplied the input filena
 
 **-h, --help**  
 &emsp;&emsp;&emsp;Display a brief usage message
+
+### Contribution
+
+before pull request, please pass the check by running `bash Test/check.bash`
 
 ### Link
 Maybe you want to convert a gif to webp?

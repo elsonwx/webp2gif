@@ -72,7 +72,7 @@ echo "converting all png frame file to gif..."
 duration=$((duration/10))
 # try this if https://github.com/elsonwx/webp2gif/pull/12
 # convert -delay $duration -loop 0 -alpha set -dispose previous *.png animation.gif
-# for Nyan cat : https://mathiasbynens.be/demo/animated-webp
+# for Nyan cat : https://mathiasbynens.be/demo/animated-webp-supported.webp
 convert -delay $duration -loop 0 *.png animation.gif
 mv $temp_dir/animation.gif "$cur_dir/$giffile"
 rm -rf $temp_dir

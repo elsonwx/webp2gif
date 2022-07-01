@@ -1,0 +1,3 @@
+Test/*
+.DS_Store
+!Test/check.bash
