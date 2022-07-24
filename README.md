@@ -38,6 +38,10 @@ if output.gif is not supplied the input filename will be used, e.g. foobar.webp 
 **-h, --help**  
 &emsp;&emsp;&emsp;Display a brief usage message
 
+### Known Issues
+
+[transparency issue](https://github.com/elsonwx/webp2gif/commit/6283202f8ea810f0bbc0f1f6425ba0612e2877cd#commitcomment-79296675)
+
 ### Contribution
 
 before pull request, please pass the check by running `bash Test/check.bash`
